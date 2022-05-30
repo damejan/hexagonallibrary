@@ -1,9 +1,12 @@
 package com.umcs.hexagonalLibrary.domain.service;
 
+import com.umcs.hexagonalLibrary.domain.model.Book;
+import com.umcs.hexagonalLibrary.domain.model.Loan;
 import com.umcs.hexagonalLibrary.domain.model.User;
 import com.umcs.hexagonalLibrary.domain.port.out.UserRepositoryPort;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class UserService {

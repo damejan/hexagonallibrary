@@ -3,11 +3,11 @@ package com.umcs.hexagonalLibrary.domain.model;
 import java.util.UUID;
 
 public class User {
-    UUID id;
-    String firstName;
-    String lastName;
-    String login;
-    String password;
+    private UUID id;
+    private String firstName;
+    private String lastName;
+    private String login;
+    private String password;
 
     public User(UUID id, String firstName, String lastName, String login, String password) {
         this.id = id;

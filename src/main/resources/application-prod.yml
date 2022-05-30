@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: ${DATABASE_URI:jdbc:postgresql://localhost:5432/hexagonalLibrary}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: ${DATABASE_SHOW_SQL:true}
+    hibernate:
+      ddl-auto: update
