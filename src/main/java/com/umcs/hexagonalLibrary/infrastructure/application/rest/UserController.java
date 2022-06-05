@@ -3,10 +3,14 @@ package com.umcs.hexagonalLibrary.infrastructure.application.rest;
 import com.umcs.hexagonalLibrary.domain.model.Loan;
 import com.umcs.hexagonalLibrary.domain.model.User;
 import com.umcs.hexagonalLibrary.domain.port.in.UserServicePort;
+import com.umcs.hexagonalLibrary.infrastructure.application.rest.dto.ErrorResponseDto;
 import com.umcs.hexagonalLibrary.infrastructure.application.rest.dto.UserDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @RestController
@@ -42,5 +46,10 @@ public class UserController {
     @DeleteMapping("/{id}")
     public User deleteUser(@PathVariable UUID id) {
         return userServicePort.deleteUserById(id);
+    }
+
+    @ExceptionHandler({NoSuchElementException.class})
+    public ResponseEntity<ErrorResponseDto> notFoundException(RuntimeException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponseDto(ex.getLocalizedMessage()));
     }
 }

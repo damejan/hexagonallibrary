@@ -48,16 +48,16 @@ public class LoanService {
     }
 
     public Loan borrowBook(UUID bookId, UUID userId) {
+
+        Book book = bookService.getBookById(bookId);
+        if(Objects.isNull(book)) {
+            throw new BookNotFoundException("Book not found.");
+        }
+
         Loan loan = getLoanByBookId(bookId);
 
         if(Objects.nonNull(loan)) {
             throw new BookAlreadyBorrowedException("This book is already borrowed.");
-        }
-
-        Book book = bookService.getBookById(bookId);
-
-        if(Objects.isNull(book)) {
-            throw new BookNotFoundException("Book not found.");
         }
 
         User user = userService.getUserById(userId);
@@ -77,10 +77,9 @@ public class LoanService {
         }
 
         if(!loan.getUser().getId().equals(userId)) {
-            throw new PermissionException("this user does not own the book.");
+            throw new PermissionException("this user does not own the book or does not exist.");
         }
 
         return deleteLoanById(loan.getId());
     }
-
 }
