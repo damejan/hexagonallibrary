@@ -14,11 +14,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 public class BookEntity {
-
     @Id
     @GeneratedValue
     private UUID id;
-
     private String author;
     private String title;
 }

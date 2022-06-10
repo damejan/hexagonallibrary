@@ -13,14 +13,6 @@ public class LoanInMemoryAdapter implements LoanRepositoryPort {
 
     private final Map<UUID, Loan> store = new HashMap<>();
 
-    private final BookRepositoryPort bookRepositoryPort;
-    private final UserRepositoryPort userRepositoryPort;
-
-    public LoanInMemoryAdapter(BookRepositoryPort bookRepositoryPort, UserRepositoryPort userRepositoryPort) {
-        this.bookRepositoryPort = bookRepositoryPort;
-        this.userRepositoryPort = userRepositoryPort;
-    }
-
     @Override
     public List<Loan> findAll() {
         return new ArrayList<>(store.values());

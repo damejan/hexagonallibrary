@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class UserConfiguration {
+public class DomainInputConfiguration {
 
     @Bean
     public UserServicePort userServicePort(UserService userService) {
@@ -47,5 +47,4 @@ public class UserConfiguration {
     public BookService bookService(BookRepositoryPort bookRepositoryPort) {
         return new BookService(bookRepositoryPort);
     }
-
 }

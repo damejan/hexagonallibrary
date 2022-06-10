@@ -15,11 +15,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 public class LoanEntity {
-
     @Id
     @GeneratedValue
     private UUID id;
-
     @OneToOne
     private BookEntity bookEntity;
     @OneToOne

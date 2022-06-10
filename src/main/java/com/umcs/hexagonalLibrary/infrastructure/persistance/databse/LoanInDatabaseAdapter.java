@@ -172,4 +172,22 @@ public class LoanInDatabaseAdapter implements LoanRepositoryPort {
                 )
         );
     }
+
+    private Book BookEntityToBook(BookEntity bookEntity) {
+        return new Book(
+                bookEntity.getId(),
+                bookEntity.getAuthor(),
+                bookEntity.getTitle()
+        );
+    }
+
+    private User UserEntityToUser(UserEntity userEntity) {
+        return new User(
+                userEntity.getId(),
+                userEntity.getFirstName(),
+                userEntity.getLastName(),
+                userEntity.getLogin(),
+                userEntity.getPassword()
+        );
+    }
 }

@@ -26,27 +26,6 @@ public class LoanService {
         return this.loanRepositoryPort.findAll();
     }
 
-    public Loan addLoan(Loan loan) {
-        return loanRepositoryPort.addLoan(loan);
-    }
-
-    public Loan getLoanById(UUID id) {
-        return this.loanRepositoryPort.getLoanById(id);
-    }
-
-    public Loan getLoanByUserId(UUID userId) {
-        return this.loanRepositoryPort.getLoanByUserId(userId);
-    }
-
-
-    public Loan getLoanByBookId(UUID bookId) {
-        return this.loanRepositoryPort.getLoanByBookId(bookId);
-    }
-
-    public Loan deleteLoanById(UUID loanId) {
-        return this.loanRepositoryPort.deleteLoanById(loanId);
-    }
-
     public Loan borrowBook(UUID bookId, UUID userId) {
 
         Book book = bookService.getBookById(bookId);
@@ -81,5 +60,26 @@ public class LoanService {
         }
 
         return deleteLoanById(loan.getId());
+    }
+
+    private Loan addLoan(Loan loan) {
+        return loanRepositoryPort.addLoan(loan);
+    }
+
+    private Loan getLoanById(UUID id) {
+        return this.loanRepositoryPort.getLoanById(id);
+    }
+
+    private Loan getLoanByUserId(UUID userId) {
+        return this.loanRepositoryPort.getLoanByUserId(userId);
+    }
+
+
+    private Loan getLoanByBookId(UUID bookId) {
+        return this.loanRepositoryPort.getLoanByBookId(bookId);
+    }
+
+    private Loan deleteLoanById(UUID loanId) {
+        return this.loanRepositoryPort.deleteLoanById(loanId);
     }
 }

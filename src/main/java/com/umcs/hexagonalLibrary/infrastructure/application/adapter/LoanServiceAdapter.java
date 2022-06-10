@@ -21,31 +21,6 @@ public class LoanServiceAdapter implements LoanServicePort {
     }
 
     @Override
-    public Loan getLoanById(UUID id) {
-        return loanService.getLoanById(id);
-    }
-
-    @Override
-    public Loan addLoan(Loan loan) {
-        return loanService.addLoan(loan);
-    }
-
-    @Override
-    public Loan getLoanByUserId(UUID userId) {
-        return loanService.getLoanByUserId(userId);
-    }
-
-    @Override
-    public Loan getLoanByBookId(UUID bookId) {
-        return loanService.getLoanByBookId(bookId);
-    }
-
-    @Override
-    public Loan deleteLoanById(UUID loanId) {
-        return loanService.deleteLoanById(loanId);
-    }
-
-    @Override
     public Loan borrowBook(UUID bookId, UUID userId) {
         return loanService.borrowBook(bookId, userId);
     }

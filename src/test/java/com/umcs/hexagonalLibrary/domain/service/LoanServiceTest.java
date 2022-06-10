@@ -29,7 +29,7 @@ class LoanServiceTest {
     void setup() {
         bookRepositoryPort = new BookInMemoryAdapter();
         userRepositoryPort = new UserInMemoryAdapter();
-        loanRepositoryPort = new LoanInMemoryAdapter(bookRepositoryPort, userRepositoryPort);
+        loanRepositoryPort = new LoanInMemoryAdapter();
 
         BookService bookService = new BookService(bookRepositoryPort);
         UserService userService = new UserService(userRepositoryPort);
@@ -232,5 +232,4 @@ class LoanServiceTest {
 
         assertEquals("this user does not own the book or does not exist.", exception.getMessage());
     }
-
 }

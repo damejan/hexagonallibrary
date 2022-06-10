@@ -16,8 +16,8 @@ public class PersistanceInMemoryConfiguration {
     }
 
     @Bean
-    public LoanRepositoryPort loanRepositoryPort(BookRepositoryPort bookRepositoryPort, UserRepositoryPort userRepositoryPort) {
-        return new LoanInMemoryAdapter(bookRepositoryPort, userRepositoryPort);
+    public LoanRepositoryPort loanRepositoryPort() {
+        return new LoanInMemoryAdapter();
     }
 
     @Bean
