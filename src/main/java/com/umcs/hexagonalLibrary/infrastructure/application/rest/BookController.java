@@ -39,7 +39,11 @@ public class BookController {
 
     @PostMapping("/")
     public Book addBook(@RequestBody BookDto bookDto) {
-        return bookServicePort.addBook(new Book(null, bookDto.getAuthor(), bookDto.getTitle()));
+        return bookServicePort.addBook(new Book(
+                null,
+                bookDto.getAuthor(),
+                bookDto.getTitle()
+        ));
     }
 
     @PatchMapping("/{id}")

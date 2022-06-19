@@ -2,13 +2,13 @@ package com.umcs.hexagonalLibrary.domain.service;
 
 import com.umcs.hexagonalLibrary.domain.exceptions.*;
 import com.umcs.hexagonalLibrary.domain.model.Book;
-import com.umcs.hexagonalLibrary.domain.model.Loan;
+import com.umcs.hexagonalLibrary.domain.model.BorrowEntry;
 import com.umcs.hexagonalLibrary.domain.model.User;
 import com.umcs.hexagonalLibrary.domain.port.out.BookRepositoryPort;
-import com.umcs.hexagonalLibrary.domain.port.out.LoanRepositoryPort;
+import com.umcs.hexagonalLibrary.domain.port.out.BorrowRepositoryPort;
 import com.umcs.hexagonalLibrary.domain.port.out.UserRepositoryPort;
 import com.umcs.hexagonalLibrary.infrastructure.persistance.inmemory.BookInMemoryAdapter;
-import com.umcs.hexagonalLibrary.infrastructure.persistance.inmemory.LoanInMemoryAdapter;
+import com.umcs.hexagonalLibrary.infrastructure.persistance.inmemory.BorrowInMemoryAdapter;
 import com.umcs.hexagonalLibrary.infrastructure.persistance.inmemory.UserInMemoryAdapter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,23 +18,23 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoanServiceTest {
+class BorrowEntryServiceTest {
 
     private BookRepositoryPort bookRepositoryPort;
     private UserRepositoryPort userRepositoryPort;
-    private LoanRepositoryPort loanRepositoryPort;
-    private LoanService loanService;
+    private BorrowRepositoryPort borrowRepositoryPort;
+    private BorrowService borrowService;
 
     @BeforeEach
     void setup() {
         bookRepositoryPort = new BookInMemoryAdapter();
         userRepositoryPort = new UserInMemoryAdapter();
-        loanRepositoryPort = new LoanInMemoryAdapter();
+        borrowRepositoryPort = new BorrowInMemoryAdapter();
 
         BookService bookService = new BookService(bookRepositoryPort);
         UserService userService = new UserService(userRepositoryPort);
 
-        loanService = new LoanService(loanRepositoryPort, bookService, userService);
+        borrowService = new BorrowService(borrowRepositoryPort, bookService, userService);
     }
 
 
@@ -56,21 +56,21 @@ class LoanServiceTest {
         bookRepositoryPort.addBook(testBook);
         userRepositoryPort.addUSer(testUser);
 
-        loanService.borrowBook(
+        borrowService.borrowBook(
                 UUID.fromString("0000-00-00-00-000000"),
                 UUID.fromString("0000-00-00-00-000001")
         );
 
-        List<Loan> loans = loanRepositoryPort.findAll();
-        assertEquals(1, loans.size());
-        assertEquals(testBook.getId(), loans.get(0).getBook().getId());
-        assertEquals(testBook.getAuthor(), loans.get(0).getBook().getAuthor());
-        assertEquals(testBook.getTitle(), loans.get(0).getBook().getTitle());
-        assertEquals(testUser.getId(), loans.get(0).getUser().getId());
-        assertEquals(testUser.getFirstName(), loans.get(0).getUser().getFirstName());
-        assertEquals(testUser.getLastName(), loans.get(0).getUser().getLastName());
-        assertEquals(testUser.getLogin(), loans.get(0).getUser().getLogin());
-        assertEquals(testUser.getPassword(), loans.get(0).getUser().getPassword());
+        List<BorrowEntry> entries = borrowRepositoryPort.findAll();
+        assertEquals(1, entries.size());
+        assertEquals(testBook.getId(), entries.get(0).getBook().getId());
+        assertEquals(testBook.getAuthor(), entries.get(0).getBook().getAuthor());
+        assertEquals(testBook.getTitle(), entries.get(0).getBook().getTitle());
+        assertEquals(testUser.getId(), entries.get(0).getUser().getId());
+        assertEquals(testUser.getFirstName(), entries.get(0).getUser().getFirstName());
+        assertEquals(testUser.getLastName(), entries.get(0).getUser().getLastName());
+        assertEquals(testUser.getLogin(), entries.get(0).getUser().getLogin());
+        assertEquals(testUser.getPassword(), entries.get(0).getUser().getPassword());
     }
 
     @Test
@@ -86,7 +86,7 @@ class LoanServiceTest {
         userRepositoryPort.addUSer(testUser);
 
         Exception exception = assertThrows(BookNotFoundException.class, () -> {
-            loanService.borrowBook(
+            borrowService.borrowBook(
                     UUID.fromString("0000-00-00-00-000000"),
                     UUID.fromString("0000-00-00-00-000001")
             );
@@ -113,13 +113,13 @@ class LoanServiceTest {
         bookRepositoryPort.addBook(testBook);
         userRepositoryPort.addUSer(testUser);
 
-        loanService.borrowBook(
+        borrowService.borrowBook(
                 UUID.fromString("0000-00-00-00-000000"),
                 UUID.fromString("0000-00-00-00-000001")
         );
 
         Exception exception = assertThrows(BookAlreadyBorrowedException.class, () -> {
-            loanService.borrowBook(
+            borrowService.borrowBook(
                     UUID.fromString("0000-00-00-00-000000"),
                     UUID.fromString("0000-00-00-00-000001")
             );
@@ -139,7 +139,7 @@ class LoanServiceTest {
         bookRepositoryPort.addBook(testBook);
 
         Exception exception = assertThrows(UserNotFoundException.class, () -> {
-            loanService.borrowBook(
+            borrowService.borrowBook(
                     UUID.fromString("0000-00-00-00-000000"),
                     UUID.fromString("0000-00-00-00-000001")
             );
@@ -166,32 +166,32 @@ class LoanServiceTest {
         bookRepositoryPort.addBook(testBook);
         userRepositoryPort.addUSer(testUser);
 
-        loanService.borrowBook(
+        borrowService.borrowBook(
                 UUID.fromString("0000-00-00-00-000000"),
                 UUID.fromString("0000-00-00-00-000001")
         );
 
-        Loan returnedLoan = loanService.returnBook(
+        BorrowEntry returnedBorrowEntry = borrowService.returnBook(
                 UUID.fromString("0000-00-00-00-000000"),
                 UUID.fromString("0000-00-00-00-000001")
         );
-        List<Loan> allLoans = loanRepositoryPort.findAll();
+        List<BorrowEntry> allEntries = borrowRepositoryPort.findAll();
 
-        assertEquals(0, allLoans.size());
-        assertEquals(testBook.getId(), returnedLoan.getBook().getId());
-        assertEquals(testBook.getAuthor(), returnedLoan.getBook().getAuthor());
-        assertEquals(testBook.getTitle(), returnedLoan.getBook().getTitle());
-        assertEquals(testUser.getId(), returnedLoan.getUser().getId());
-        assertEquals(testUser.getFirstName(), returnedLoan.getUser().getFirstName());
-        assertEquals(testUser.getLastName(), returnedLoan.getUser().getLastName());
-        assertEquals(testUser.getLogin(), returnedLoan.getUser().getLogin());
-        assertEquals(testUser.getPassword(), returnedLoan.getUser().getPassword());
+        assertEquals(0, allEntries.size());
+        assertEquals(testBook.getId(), returnedBorrowEntry.getBook().getId());
+        assertEquals(testBook.getAuthor(), returnedBorrowEntry.getBook().getAuthor());
+        assertEquals(testBook.getTitle(), returnedBorrowEntry.getBook().getTitle());
+        assertEquals(testUser.getId(), returnedBorrowEntry.getUser().getId());
+        assertEquals(testUser.getFirstName(), returnedBorrowEntry.getUser().getFirstName());
+        assertEquals(testUser.getLastName(), returnedBorrowEntry.getUser().getLastName());
+        assertEquals(testUser.getLogin(), returnedBorrowEntry.getUser().getLogin());
+        assertEquals(testUser.getPassword(), returnedBorrowEntry.getUser().getPassword());
     }
 
     @Test
     void returnBookWhenBookNotBorrowedYetOrDoesNotExist() {
         Exception exception = assertThrows(BookNotBorrowedException.class, () -> {
-            loanService.returnBook(
+            borrowService.returnBook(
                     UUID.fromString("0000-00-00-00-000000"),
                     UUID.fromString("0000-00-00-00-000001")
             );
@@ -218,13 +218,13 @@ class LoanServiceTest {
         bookRepositoryPort.addBook(testBook);
         userRepositoryPort.addUSer(testUser);
 
-        loanService.borrowBook(
+        borrowService.borrowBook(
                 UUID.fromString("0000-00-00-00-000000"),
                 UUID.fromString("0000-00-00-00-000001")
         );
 
         Exception exception = assertThrows(PermissionException.class, () -> {
-            loanService.returnBook(
+            borrowService.returnBook(
                     UUID.fromString("0000-00-00-00-000000"),
                     UUID.fromString("0000-00-00-00-000002")
             );

@@ -1,16 +1,16 @@
 package com.umcs.hexagonalLibrary.infrastructure.config;
 
 import com.umcs.hexagonalLibrary.domain.port.in.BookServicePort;
-import com.umcs.hexagonalLibrary.domain.port.in.LoanServicePort;
+import com.umcs.hexagonalLibrary.domain.port.in.BorrowServicePort;
 import com.umcs.hexagonalLibrary.domain.port.in.UserServicePort;
 import com.umcs.hexagonalLibrary.domain.port.out.BookRepositoryPort;
-import com.umcs.hexagonalLibrary.domain.port.out.LoanRepositoryPort;
+import com.umcs.hexagonalLibrary.domain.port.out.BorrowRepositoryPort;
 import com.umcs.hexagonalLibrary.domain.port.out.UserRepositoryPort;
 import com.umcs.hexagonalLibrary.domain.service.BookService;
-import com.umcs.hexagonalLibrary.domain.service.LoanService;
+import com.umcs.hexagonalLibrary.domain.service.BorrowService;
 import com.umcs.hexagonalLibrary.domain.service.UserService;
 import com.umcs.hexagonalLibrary.infrastructure.application.adapter.BookServiceAdapter;
-import com.umcs.hexagonalLibrary.infrastructure.application.adapter.LoanServiceAdapter;
+import com.umcs.hexagonalLibrary.infrastructure.application.adapter.BorrowServiceAdapter;
 import com.umcs.hexagonalLibrary.infrastructure.application.adapter.UserServiceAdaptaer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,13 +29,13 @@ public class DomainInputConfiguration {
     }
 
     @Bean
-    public LoanServicePort loanServicePort(LoanService loanService) {
-        return new LoanServiceAdapter(loanService);
+    public BorrowServicePort borrowServicePort(BorrowService borrowService) {
+        return new BorrowServiceAdapter(borrowService);
     }
 
     @Bean
-    public LoanService loanService(LoanRepositoryPort loanRepositoryPort, BookService bookService, UserService userService) {
-        return new LoanService(loanRepositoryPort, bookService, userService);
+    public BorrowService borrowService(BorrowRepositoryPort borrowRepositoryPort, BookService bookService, UserService userService) {
+        return new BorrowService(borrowRepositoryPort, bookService, userService);
     }
 
     @Bean

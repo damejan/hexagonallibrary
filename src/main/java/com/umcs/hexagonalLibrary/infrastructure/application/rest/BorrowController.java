@@ -1,10 +1,10 @@
 package com.umcs.hexagonalLibrary.infrastructure.application.rest;
 
 import com.umcs.hexagonalLibrary.domain.exceptions.*;
-import com.umcs.hexagonalLibrary.domain.model.Loan;
-import com.umcs.hexagonalLibrary.domain.port.in.LoanServicePort;
+import com.umcs.hexagonalLibrary.domain.model.BorrowEntry;
+import com.umcs.hexagonalLibrary.domain.port.in.BorrowServicePort;
 import com.umcs.hexagonalLibrary.infrastructure.application.rest.dto.ErrorResponseDto;
-import com.umcs.hexagonalLibrary.infrastructure.application.rest.dto.LoanContractDto;
+import com.umcs.hexagonalLibrary.infrastructure.application.rest.dto.BorrowContractDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,27 +12,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/loan")
-public class LoanController {
-    private LoanServicePort loanServicePort;
+@RequestMapping("/api/borrowEntries")
+public class BorrowController {
+    private BorrowServicePort borrowServicePort;
 
-    public LoanController(LoanServicePort loanServicePort) {
-        this.loanServicePort = loanServicePort;
+    public BorrowController(BorrowServicePort borrowServicePort) {
+        this.borrowServicePort = borrowServicePort;
     }
 
     @GetMapping
-    public List<Loan> getLoans() {
-        return loanServicePort.getLoans();
+    public List<BorrowEntry> getBorrowEntries() {
+        return borrowServicePort.getBorrowEntries();
     }
 
     @PostMapping("/borrow")
-    public Loan borrowBook(@RequestBody LoanContractDto loanContractDto) {
-        return loanServicePort.borrowBook(loanContractDto.getBookId(), loanContractDto.getUserId());
+    public BorrowEntry borrowBook(@RequestBody BorrowContractDto borrowContractDto) {
+        return borrowServicePort.borrowBook(borrowContractDto.getBookId(), borrowContractDto.getUserId());
     }
 
     @PostMapping("/return")
-    public Loan returnBook(@RequestBody LoanContractDto loanContractDto) {
-        return loanServicePort.returnBook(loanContractDto.getBookId(), loanContractDto.getUserId());
+    public BorrowEntry returnBook(@RequestBody BorrowContractDto borrowContractDto) {
+        return borrowServicePort.returnBook(borrowContractDto.getBookId(), borrowContractDto.getUserId());
     }
 
     @ExceptionHandler({BookAlreadyBorrowedException.class, BookNotBorrowedException.class, PermissionException.class})

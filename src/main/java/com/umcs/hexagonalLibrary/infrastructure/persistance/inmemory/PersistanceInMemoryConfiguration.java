@@ -1,7 +1,7 @@
 package com.umcs.hexagonalLibrary.infrastructure.persistance.inmemory;
 
 import com.umcs.hexagonalLibrary.domain.port.out.BookRepositoryPort;
-import com.umcs.hexagonalLibrary.domain.port.out.LoanRepositoryPort;
+import com.umcs.hexagonalLibrary.domain.port.out.BorrowRepositoryPort;
 import com.umcs.hexagonalLibrary.domain.port.out.UserRepositoryPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +16,8 @@ public class PersistanceInMemoryConfiguration {
     }
 
     @Bean
-    public LoanRepositoryPort loanRepositoryPort() {
-        return new LoanInMemoryAdapter();
+    public BorrowRepositoryPort borrowRepositoryPort() {
+        return new BorrowInMemoryAdapter();
     }
 
     @Bean

@@ -1,10 +1,10 @@
 package com.umcs.hexagonalLibrary.infrastructure.persistance.databse;
 
 import com.umcs.hexagonalLibrary.domain.port.out.BookRepositoryPort;
-import com.umcs.hexagonalLibrary.domain.port.out.LoanRepositoryPort;
+import com.umcs.hexagonalLibrary.domain.port.out.BorrowRepositoryPort;
 import com.umcs.hexagonalLibrary.domain.port.out.UserRepositoryPort;
 import com.umcs.hexagonalLibrary.infrastructure.persistance.databse.repository.BookRepository;
-import com.umcs.hexagonalLibrary.infrastructure.persistance.databse.repository.LoanRepository;
+import com.umcs.hexagonalLibrary.infrastructure.persistance.databse.repository.BorrowRepository;
 import com.umcs.hexagonalLibrary.infrastructure.persistance.databse.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +19,8 @@ public class PersistanceInDatabaseConfiguration {
     }
 
     @Bean
-    public LoanRepositoryPort loanRepositoryPort(LoanRepository loanRepository) {
-        return new LoanInDatabaseAdapter(loanRepository);
+    public BorrowRepositoryPort borrowRepositoryPort(BorrowRepository borrowRepository) {
+        return new BorrowInDatabaseAdapter(borrowRepository);
     }
 
     @Bean

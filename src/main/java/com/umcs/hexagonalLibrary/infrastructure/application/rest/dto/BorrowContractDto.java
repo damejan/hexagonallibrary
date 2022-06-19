@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Data
-public class LoanContractDto {
+public class BorrowContractDto {
     private UUID bookId;
     private UUID userId;
 }

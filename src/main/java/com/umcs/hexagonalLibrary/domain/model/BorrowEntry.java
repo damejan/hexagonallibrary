@@ -2,13 +2,13 @@ package com.umcs.hexagonalLibrary.domain.model;
 
 import java.util.UUID;
 
-public class Loan {
+public class BorrowEntry {
 
     private UUID id;
     private Book book;
     private User user;
 
-    public Loan(UUID id, Book book, User user) {
+    public BorrowEntry(UUID id, Book book, User user) {
         this.id = id;
         this.book = book;
         this.user = user;
